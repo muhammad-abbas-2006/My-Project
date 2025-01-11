@@ -1,0 +1,307 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+.navbar-main{
+    height: 16vh;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow:0px 0px 9px black;
+     
+}
+
+
+.dropbtn {
+    background-color:gold;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px black ;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: silver;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: gold;}
+
+
+
+.navbar1 > div > a:hover{
+   
+    background-color: gold;
+    color: black;
+    border-radius: 6px;
+
+}
+
+.navbar2 > div > a:hover{
+    background-color: gold;
+    color: black;
+    border-radius: 6px;
+
+}
+
+.navbar1{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.navbar1 > div > a {
+
+    color: black;
+    text-decoration: none;
+    margin-left: 100px;
+    font-size: larger;
+    padding: 10px;
+    transition-property:all ; 
+    transition: ease-in-out;
+    transition-duration: 0.3s;
+    
+    
+    
+}
+
+.navbar1 > div { margin-top: 20px;}
+.navbar1 > div > button{
+     margin-top: -10px; 
+     padding: 10px; 
+    border-radius: 9px;
+    border-color:gold;
+    background-color: gold;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    
+}
+
+.navbar2{
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    margin-right: 15%;
+    
+}
+
+.navbar2 > div > a{
+    text-decoration: none;
+    color: black;
+    margin-left: 35px;
+    font-size: large;
+    transition-property:all ; 
+    transition: ease-in-out;
+    transition-duration: 0.3s;
+    padding: 10px;
+}
+
+.navbar2 > div > img {
+    position:relative ;
+    top: -45px;
+    height: 90px;
+    left: 30px;
+
+}
+
+@media screen and (max-width:1200px){
+
+
+}
+
+
+
+.div1 {
+    position: relative;
+    top: 40px;
+     text-align: center;
+   
+}
+
+@media screen and (max-width:1000px){
+    .div1 > img {
+        width: 100%;
+    }
+    
+}
+
+
+.div2{
+    display: flex;
+    justify-content: space-evenly;
+    /* margin-bottom: 5%; */
+}
+@media screen and (min-width:1160px){
+    .div2{
+        margin-bottom: 5%;
+    }
+}
+
+@media screen and (max-width:1159px){
+   .div2{ margin-bottom: 10%;}
+}
+
+
+.div2 > div{
+
+    
+    margin-top: 10%;
+    height: 500px;
+    width: 27%;
+    border: 2px solid rgb(216, 216, 216);
+    border-radius: 20px;
+    text-align: center;
+    font-size: larger;
+    
+    
+    
+}
+
+
+.div2 > div > h1 {
+
+    color: red;
+}
+
+.div2 > div > button {
+    
+    padding: 13px;
+    font-size: 15px;
+    width: 30%;
+    border-radius:8px;
+    /* border: 2px solid gold; */
+    border: none;
+    background-color: gold;
+    transition: all;
+    transition: ease-in;
+    transition-duration:0.3s ;
+    
+    
+
+}
+
+.div2 > div > button:hover{
+    color: gold;
+    background-color: rgb(49, 49, 49);
+     
+}
+
+
+.div2 >div > img {
+    
+    height: 20vh;
+    width: 100%;
+
+
+}
+
+
+@media screen and (max-width:900px){
+    .div2{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .div2 > div {
+        height: 60vh;
+        width: 50%;
+    }
+}
+
+
+
+.icon{
+    margin-left:15vh ;
+    padding-bottom: 30px;
+    display: flex;
+    gap: 50px;
+    
+
+}
+
+.footer {
+   /* border: 2px solid black; */
+   display: flex;
+   justify-content: center;
+}
+
+.footer > div {
+    padding: 10%;
+}
+
+.footer > div > h2{
+    padding: 20%;
+}
+.footer-bottom{
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.img > img{
+
+    height: 11vh;
+    width: 90%;
+    
+    
+}
+
+.nav-footer{
+    
+    display: flex;
+    justify-content: space-around;
+    
+}
+.nav-footer > div > a{
+    text-decoration: none;
+    color: black;
+    font-size: large;
+    padding: 20px;
+    padding-bottom:40%;
+}
+
+
+@media screen and (max-width:900px){
+    footer{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .footer > div > h2{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10%;
+        
+    }
+
+}
+
+
