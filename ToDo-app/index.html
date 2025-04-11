@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo-App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .heading{   
+            background-color:rgb(51, 163, 51);
+            color: rgb(56, 56, 56);
+            height: 13vh;
+            width: 100%;
+            display: flex;
+            align-items: center;           
+        }
+        .heading > h1{
+            font-size: 50px;
+            font-family:MV Boli;
+            padding: 20px;
+            font-weight: 600;   
+        }
+        .main{
+            height: 23vh;
+            margin-top: 3%;
+            margin-left: 10px;
+            padding: 10px;
+        }
+        .main > h1{
+            font-size:40px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .main > p{
+            color: green;
+            font-size: larger;
+        }
+        .btn{
+            padding: 8px;
+            border-radius: 5px;
+            color: white;
+            background-color: rgb(104, 102, 102);
+            border-right: 2px solid white;
+            transition: ease-in-out;
+            transition-duration: 0.2s; 
+        }
+        .btn-li{
+            padding: 8px;
+            border-radius: 5px;
+            color: white;
+            background-color: rgb(104, 102, 102);
+            transition: ease-in-out;
+            transition-duration: 0.2s;
+            border: none;
+        }
+        .btn:hover{
+            color: white;
+            background-color:rgb(35, 167, 35);
+        }
+        .btn-li:hover{
+            color: white;
+            background-color:rgb(35, 167, 35);
+        }
+        .list{
+            margin-left: 10px;
+            padding: 10px;
+        }
+        .list > h1{
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        .task-text {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+.btn-sm {
+    margin-left: 2px;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="heading">
+        <h1>ToDo List</h1>
+    </div>
+    <div class="main" >
+        <h1>Add Items</h1>
+        <p>Text edited successfully</p>
+        <div class="input-group">
+            <input id="inp" type="text" class=" form-control" placeholder="Add a new task... " aria-label="Recipient's username with two button addons">
+            <button onclick="btn()" class="btn btn-outline-secondary" type="button">Edit</button>
+            <button onclick="delall()" class="btn btn-outline-secondary" type="button">Delete All</button>
+          </div>
+    </div>
+    <div class="list" >
+        <h1>Tasks</h1>
+        <ul class="list-group list-group-numbered" id="list"></ul>
+
+    </div>
+    
+
+    <script>
+        let getinp = document.getElementById('inp')
+        let getul = document.getElementById('list')
+        
+        function btn(){
+            if(getinp.value == ''){
+                alert('Enter the value')
+            } else {
+                getul.innerHTML += `
+                <li class="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                    <div class="task-text p-3">${getinp.value}</div>
+                    <div>
+                        <button class="btn-li btn-sm" onclick="edit(this)">Edit</button>
+                        <button class="btn-li btn-sm" onclick="dele(this)">Delete</button>
+                    </div>
+                </li>`;
+        
+                getinp.value = ''; 
+            }
+        }
+        
+        function delall(){
+            getul.innerHTML = ''
+        }
+        
+        function edit(e) {
+            var pro = prompt("Enter updated value", e.parentNode.parentNode.querySelector('.task-text').textContent);
+            e.parentNode.parentNode.querySelector('.task-text').textContent = pro;
+        }
+        
+        function dele(e){
+            e.parentNode.parentNode.remove()
+        }
+        </script>
+        
+<script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
