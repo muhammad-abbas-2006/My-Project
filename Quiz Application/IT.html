@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz App</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="icon" href="picture/logo.webp">
+  <style>
+    body {
+      background-color: white;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+    }
+    .quiz-container {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #fff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-radius: 15px;
+    }
+
+    .quiz-header {
+      background-color: #FFD700;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .quiz-header h2 {
+      color: black;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .start-btn {
+      background-color: #FFD700;
+      color: black;
+      font-size: 1.5rem;
+      padding: 15px 40px;
+      border-radius: 50px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+      border: none;
+      transition: all 0.3s ease-in-out;
+      display: block;
+      margin: 20px auto;
+    }
+
+    .start-btn:hover {
+      background-color: #FFC107;
+      transform: translateY(-2px);
+    }
+
+    .timer-box {
+      width: 120px;
+      margin: 20px auto;
+      padding: 10px;
+      border-radius: 50px;
+      background-color: #FFD700;
+      color: black;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .question-section {
+      margin-top: 30px;
+    }
+
+    .question {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .options button {
+      background-color: #fef08a;
+      color: #000;
+      margin-bottom: 10px;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+
+    .options button:hover {
+      background-color: #fde047;
+    }
+    .subBtn{
+
+        text-align: center;
+    }
+    .time{
+        text-decoration: none; color: red; font-size: large;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <h2>Information Technology</h2>
+    </div>
+
+    <div class="timer-box">
+     <a class="time" id="time">00</a>
+    </div>
+
+    <div id="quesDiv">
+  </div>
+
+  <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title" id="resultModalLabel">Quiz Result</h5>
+      </div>
+      <div class="modal-body text-center">
+        <p id="resultText"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="location.reload()">Restart</button>
+        <button type="button" class="btn btn-success" onclick="submit()">Submit</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+let currentIndex = 0;
+let allQuestions = [];
+let score = 0;
+let timer; 
+let totalSeconds = 3600; 
+
+fetch('https://the-trivia-api.com/v2/questions')
+  .then(response => response.json())
+  .then(data => {
+    allQuestions = data;
+    showQuestion(currentIndex);
+  })
+  .catch(err => console.log(err));
+
+function showQuestion(index) {
+  const cards = document.getElementById('quesDiv');
+  cards.innerHTML = '';
+  clearInterval(timer); 
+  totalSeconds = 3600;  
+
+  if (index >= allQuestions.length) {
+    showResult();
+    return;
+  }
+
+  startTimer(); 
+
+  const item = allQuestions[index];
+  const question = item.question.text;
+  const correct = item.correctAnswer;
+  const incorrect = item.incorrectAnswers;
+  const options = [correct, ...incorrect].sort(() => Math.random() - 0.5);
+
+  let selectedAnswer = "";
+
+  const questionHTML = `
+    <div class="question-box">
+      <div class="question">Q: ${question}</div>
+      <div class="options">
+        ${options.map(opt => `<button class="option-btn">${opt}</button>`).join('')}
+      </div>
+      <div class="subBtn mt-3">
+        <button class="btn btn-warning" id="submitBtn" disabled>Submit</button>
+      </div>
+    </div>
+  `;
+
+  cards.innerHTML = questionHTML;
+
+  const optionButtons = document.querySelectorAll('.option-btn');
+  const submitBtn = document.getElementById('submitBtn');
+
+  optionButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      optionButtons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedAnswer = btn.textContent;
+      submitBtn.disabled = false;
+    });
+  });
+
+  submitBtn.addEventListener('click', () => {
+    clearInterval(timer); 
+    if (selectedAnswer === correct) {
+      score++;
+    }
+    currentIndex++;
+    showQuestion(currentIndex);
+  });
+}
+
+function showResult() {
+  clearInterval(timer);
+  const modal = new bootstrap.Modal(document.getElementById('resultModal'));
+  document.getElementById('resultText').textContent = `You scored ${score} out of ${allQuestions.length}!`;
+  modal.show();
+}
+
+function submit() {
+  Swal.fire({
+    title: "Submitted",
+    icon: "success",
+    draggable: true
+  });
+}
+
+function startTimer() {
+  updateTimerDisplay();
+  timer = setInterval(() => {
+    totalSeconds--;
+    updateTimerDisplay();
+    if (totalSeconds <= 0) {
+      clearInterval(timer);
+      currentIndex++;
+      showQuestion(currentIndex);
+    }
+  }, 10);
+}
+
+function updateTimerDisplay() {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  document.getElementById('time').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+</script>
+
+
+</body>
+</html>
