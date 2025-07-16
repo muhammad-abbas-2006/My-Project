@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Counter App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e1f26, #3e3f4a, #232526);
+      min-height: 100vh;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main {
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      width: 90%;
+      max-width: 500px;
+      padding: 40px 30px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), 0 0 80px rgba(0, 0, 0, 0.8);
+    }
+
+    .screen {
+      border-radius: 20px;
+      height: 180px;
+      margin-bottom: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px #00ffffaa, 0 0 30px #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .button {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .button button {
+      flex: 1 1 30%;
+      font-size: 1.6rem;
+      border-radius: 15px;
+      padding: 15px 20px;
+      transition: all 0.3s ease;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn-success {
+      background-color: #00c896;
+      box-shadow: 0 0 10px #00c896;
+    }
+
+    .btn-success:hover {
+      background-color: #00a67d;
+      box-shadow: 0 0 15px #00ffcc;
+    }
+
+    .btn-warning {
+      background-color: #ff9f43;
+      box-shadow: 0 0 10px #ff9f43;
+    }
+
+    .btn-warning:hover {
+      background-color: #ff7f0f;
+      box-shadow: 0 0 15px #ffc107;
+    }
+
+    .btn-danger {
+      background-color: #ff4d6d;
+      box-shadow: 0 0 10px #ff4d6d;
+    }
+
+    .btn-danger:hover {
+      background-color: #ff1e4b;
+      box-shadow: 0 0 15px #ff5f8d;
+    }
+
+    button:disabled {
+      background-color: #666 !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main">
+    <div class="screen" id="counter">0</div>
+
+    <div class="button">
+      <button id="plusBtn" class="btn btn-success">+</button>
+      <button id="resetBtn" class="btn btn-warning">Reset</button>
+      <button id="minusBtn" class="btn btn-danger">-</button>
+    </div>
+  </div>
+
+  <script>
+    function main() {
+      let count = 0;
+      const counter = document.getElementById('counter');
+      const plus = document.getElementById('plusBtn');
+      const minus = document.getElementById('minusBtn');
+      const reset = document.getElementById('resetBtn');
+
+      if (count === 0) minus.disabled = true;
+
+      function updation() {
+        counter.innerHTML = count;
+        minus.disabled = count === 0;
+      }
+
+      plus.addEventListener("click", () => {
+        count++;
+        updation();
+      });
+
+      minus.addEventListener("click", () => {
+        count--;
+        updation();
+      });
+
+      reset.addEventListener("click", () => {
+        count = 0;
+        updation();
+      });
+    }
+
+    main();
+  </script>
+
+</body>
+</html>
+
